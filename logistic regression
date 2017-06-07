@@ -1,5 +1,3 @@
-#目前有点问题
-
 import numpy as np
 import matplotlib as plt
 
@@ -11,10 +9,10 @@ def train_logistic_regression(train_x,train_y,step_length,max_iteration):
     weights=np.ones((width,1))
 
     for k in range(max_iteration):
-        print(train_x*weights)
         output=sigmoid(train_x*weights)
         error=train_y-output
         weights=weights+step_length*train_x.transpose()*error
+
     return weights
 
 def test_logistic_regression(test_x,test_y,weights):
@@ -30,16 +28,16 @@ def test_logistic_regression(test_x,test_y,weights):
 
 true_weights=np.mat(np.linspace(-1,1,100)).transpose()
 data_x=[[]for i in range(5000)]
-data_y=[[]for j in range(5000)]
+data_y=[[]for i in range(5000)]
 for m in range(5000):
     for n in range(100):
         data_x[m].append(np.random.random())
-    data_y[m].append(0)
-    data_y[m].append(0)
-    data_y[m][0]=(np.mat(data_x[m])*true_weights>0)
+    if((data_x[m]*true_weights)>0):
+        data_y[m].append(1)
+    else:
+        data_y[m].append(0)
 data_x=np.mat(data_x)
 data_y=np.mat(data_y)
-print(data_x)
 weights=train_logistic_regression(data_x,data_y,0.01,100)
 print(test_logistic_regression(data_x,data_y,weights))
 
