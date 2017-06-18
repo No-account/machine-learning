@@ -1,20 +1,25 @@
+#逻辑回归就是在线性回归的基础上，加了一个逻辑函数，使得y的取值范围变成了（0，1），用于二分类问题
 import numpy as np
 import matplotlib as plt
 
+#逻辑函数
 def sigmoid(x):
     return 1/(1+np.exp(-x))
 
+#训练weights
 def train_logistic_regression(train_x,train_y,step_length,max_iteration):
     length,width=np.shape(train_x)
     weights=np.ones((width,1))
 
     for k in range(max_iteration):
+        #损失函数为所有样本的对数似然函数，所以需要极大化loss，对该函数求导为train_x.transpose()*(train_y-output)，对其进行梯度上升
         output=sigmoid(train_x*weights)
         error=train_y-output
         weights=weights+step_length*train_x.transpose()*error
 
     return weights
 
+#测试
 def test_logistic_regression(test_x,test_y,weights):
     length,width=np.shape(test_x)
     matchcount=0
@@ -25,7 +30,7 @@ def test_logistic_regression(test_x,test_y,weights):
     accuracy=float(matchcount)/length
     return accuracy
 
-
+#造数据
 true_weights=np.mat(np.linspace(-1,1,100)).transpose()
 data_x=[[]for i in range(5000)]
 data_y=[[]for i in range(5000)]
