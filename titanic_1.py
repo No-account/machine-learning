@@ -1,4 +1,4 @@
-#kaggle的泰坦尼克号幸存者预测，用的是决策树模型预测
+#kaggle的泰坦尼克号幸存者预测，用的是决策树模型预测，准确率为0.72727
 
 import pandas as pd
 import numpy as np
@@ -37,7 +37,7 @@ dict['Survived']=prediction
 dataframe=pd.DataFrame(dict)
 
 #保存数据
-dataframe.to_csv("result.csv",index=False,sep=' ')
+dataframe.to_csv("result.csv",index=False)
 
 
 
